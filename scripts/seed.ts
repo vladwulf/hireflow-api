@@ -55,27 +55,24 @@ async function main() {
 	const seniorFrontend = await prisma.job.create({
 		data: {
 			title: "Senior Frontend Engineer",
-			department: "Engineering",
+			category: "Engineering",
 			status: "ACTIVE",
 			templateId: engineeringTemplate.id,
-			notes:
-				"Looking for someone with strong React and TypeScript skills. Team is 6 engineers. Need to lead the design system work.",
-			content: `## Senior Frontend Engineer
+			content: `## Role Overview
+We are looking for a Senior Frontend Engineer to join our growing engineering team and lead the development of our design system.
 
-We are looking for a Senior Frontend Engineer to join our growing engineering team.
-
-### Responsibilities
+## Responsibilities
 - Lead development of our React-based design system
 - Mentor junior engineers and conduct code reviews
 - Collaborate with product and design to deliver high-quality features
 
-### Requirements
+## Requirements
 - 5+ years of frontend development experience
 - Expert-level React and TypeScript
 - Experience with component libraries and design systems
 - Strong understanding of web performance
 
-### Nice to Have
+## Nice to Have
 - Experience with Next.js
 - Familiarity with Figma`,
 		},
@@ -84,27 +81,24 @@ We are looking for a Senior Frontend Engineer to join our growing engineering te
 	const backendJob = await prisma.job.create({
 		data: {
 			title: "Backend Engineer",
-			department: "Engineering",
+			category: "Engineering",
 			status: "ACTIVE",
 			templateId: engineeringTemplate.id,
-			notes:
-				"NestJS and PostgreSQL stack. Need someone comfortable with distributed systems.",
-			content: `## Backend Engineer
-
+			content: `## Role Overview
 Join our backend team building the core infrastructure for our platform.
 
-### Responsibilities
+## Responsibilities
 - Design and build scalable REST APIs with NestJS
 - Optimize database queries and schema design
 - Participate in on-call rotation
 
-### Requirements
+## Requirements
 - 3+ years of backend development
 - Strong Node.js and TypeScript skills
 - Experience with PostgreSQL and ORMs
 - Understanding of REST API design
 
-### Nice to Have
+## Nice to Have
 - Experience with message queues (Kafka, RabbitMQ)
 - Kubernetes and Docker experience`,
 		},
@@ -113,21 +107,26 @@ Join our backend team building the core infrastructure for our platform.
 	const closedJob = await prisma.job.create({
 		data: {
 			title: "Product Manager – Growth",
-			department: "Product",
+			category: "Product",
 			status: "CLOSED",
 			templateId: productTemplate.id,
-			notes: "Position filled internally.",
-			content: `## Product Manager – Growth
+			content: `## Role Overview
+Drive growth initiatives across our product suite by owning the experimentation pipeline and roadmap.
 
-Drive growth initiatives across our product suite.
-
-### Responsibilities
+## Responsibilities
 - Own the growth roadmap and experimentation pipeline
 - Work with data and engineering to ship A/B tests
+- Define and track key growth metrics
 
-### Requirements
+## Requirements
 - 4+ years in product management
-- Strong analytical skills and SQL proficiency`,
+- Strong analytical skills and SQL proficiency
+- Experience running A/B tests at scale
+
+## What We Offer
+- Competitive salary and equity
+- Remote-friendly environment
+- High-impact role with direct ownership of growth outcomes`,
 		},
 	});
 
