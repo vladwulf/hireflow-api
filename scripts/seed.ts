@@ -26,7 +26,8 @@ async function main() {
 
 ## Nice to Have
 {{nice_to_have}}`,
-			sections: ["Role Overview", "Responsibilities", "Requirements", "Nice to Have"],
+			category: "Engineering",
+			tags: ["react", "typescript", "frontend"],
 		},
 	});
 
@@ -44,7 +45,8 @@ async function main() {
 
 ## What We Offer
 {{what_we_offer}}`,
-			sections: ["Role Overview", "Responsibilities", "Requirements", "What We Offer"],
+			category: "Product",
+			tags: ["product-management", "growth", "analytics"],
 		},
 	});
 

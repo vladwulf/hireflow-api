@@ -7,6 +7,10 @@ export class CreateTemplateDto {
 
 	@IsString()
 	@IsNotEmpty()
+	category: string;
+
+	@IsString()
+	@IsNotEmpty()
 	description: string;
 
 	@IsString({ each: true })
