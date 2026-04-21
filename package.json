@@ -7,7 +7,7 @@
 	"license": "UNLICENSED",
 	"scripts": {
 		"db:generate": "prisma generate",
-		"db:redeploy": "prisma migrate reset && primsa migrate deploy && prisma generate",
+		"db:redeploy": "prisma migrate reset && prisma migrate deploy && prisma generate",
 		"db:migrate": "prisma migrate dev",
 		"db:seed": "tsx scripts/seed.ts",
 		"db:studio": "prisma studio",
