@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { Injectable, Logger, type OnModuleInit } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import OpenAI from "openai";
 
 export interface AiMessage {
@@ -16,13 +17,17 @@ const DEFAULTS: Record<Provider, string> = {
 
 @Injectable()
 export class AiService implements OnModuleInit {
+	constructor(private readonly configService: ConfigService) {}
+
 	private readonly logger = new Logger(AiService.name);
 	private provider: Provider;
 	private anthropic: Anthropic | null = null;
 	private openai: OpenAI | null = null;
 
 	onModuleInit() {
-		if (process.env.ANTHROPIC_API_KEY) {
+		const claudeApiKey = this.configService.getOrThrow("ANTHROPIC_API_KEY");
+
+		if (claudeApiKey) {
 			this.provider = "anthropic";
 			this.anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 		} else if (process.env.OPENAI_API_KEY) {
