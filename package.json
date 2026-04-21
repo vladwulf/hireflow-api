@@ -5,6 +5,9 @@
 	"author": "",
 	"private": true,
 	"license": "UNLICENSED",
+	"engines": {
+		"node": ">=24"
+	},
 	"scripts": {
 		"db:generate": "prisma generate",
 		"db:redeploy": "prisma migrate reset && prisma migrate deploy && prisma generate",
