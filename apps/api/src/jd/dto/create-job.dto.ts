@@ -1,5 +1,5 @@
-import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { JobStatus } from "generated/prisma/enums";
+import {  IsNotEmpty, IsString } from "class-validator";
+
 
 
 export class CreateJobDto {
@@ -11,14 +11,11 @@ export class CreateJobDto {
 	@IsNotEmpty()
 	category: string;
 
-	@IsEnum(JobStatus)
-	@IsOptional()
-	status?: JobStatus;
-
 	@IsString()
 	@IsNotEmpty()
 	content: string;
 
-	@IsInt()
-	templateId: number;
+	@IsString()
+	@IsNotEmpty()
+	templateUuid: string;
 }
