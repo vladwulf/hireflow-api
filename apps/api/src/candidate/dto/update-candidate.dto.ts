@@ -1,19 +1,19 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from "class-validator";
 
 export class UpdateCandidateDto {
-  @IsString()
-  @IsOptional()
-  name?: string;
+	@IsString()
+	@IsOptional()
+	name?: string;
 
-  @IsString()
-  @IsOptional()
-  cvText?: string;
+	@IsString()
+	@IsOptional()
+	cvText?: string;
 
-  @IsString()
-  @IsOptional()
-  appFormText?: string;
+	@IsString()
+	@IsOptional()
+	appFormText?: string;
 
-  @IsString()
-  @IsOptional()
-  extraText?: string;
+	@IsString()
+	@IsOptional()
+	extraText?: string;
 }

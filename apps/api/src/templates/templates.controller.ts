@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Patch,
+	Post,
+} from "@nestjs/common";
 import { CreateTemplateDto } from "./dto/create-template.dto";
 import { UpdateTemplateDto } from "./dto/update-template.dto";
 import { TemplatesService } from "./templates.service";
@@ -24,10 +33,7 @@ export class TemplatesController {
 	}
 
 	@Patch(":uuid")
-	updateTemplate(
-		@Param("uuid") uuid: string,
-		@Body() dto: UpdateTemplateDto,
-	) {
+	updateTemplate(@Param("uuid") uuid: string, @Body() dto: UpdateTemplateDto) {
 		return this.templatesService.updateTemplate(uuid, dto);
 	}
 

@@ -1,10 +1,10 @@
 import { AiService } from "@lib/ai";
 import { PrismaService } from "@lib/prisma";
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { Template } from "../../../../generated/prisma/client";
 import { CreateTemplateDto } from "./dto/create-template.dto";
 import { UpdateTemplateDto } from "./dto/update-template.dto";
 import { GetTemplates } from "./types";
-import { Template } from "../../../../generated/prisma/client";
 
 const metaPrompt = `You are a Job Description Template Architect.
 
@@ -88,7 +88,10 @@ export class TemplatesService {
 		await this.prisma.template.delete({ where: { uuid } });
 	}
 
-	async updateTemplate(uuid: string, dto: UpdateTemplateDto): Promise<GetTemplates> {
+	async updateTemplate(
+		uuid: string,
+		dto: UpdateTemplateDto,
+	): Promise<GetTemplates> {
 		const updated = await this.prisma.template.update({
 			where: { uuid },
 			data: { template: dto.template },
@@ -96,7 +99,9 @@ export class TemplatesService {
 		return toDto(updated);
 	}
 
-	async createTemplate(createTemplateDto: CreateTemplateDto): Promise<GetTemplates> {
+	async createTemplate(
+		createTemplateDto: CreateTemplateDto,
+	): Promise<GetTemplates> {
 		const template = await this.ai.createMessage(
 			[{ role: "user", content: createTemplateDto.description }],
 			{ system: metaPrompt },

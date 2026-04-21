@@ -28,62 +28,61 @@ Your task is to generate a completed Markdown job description by replacing every
 
 ### Job Description Template`;
 
-
 const secondHalf = `### Job Description Data`;
 
 @Injectable()
 export class JdService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly ai: AiService,
-  ) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly ai: AiService,
+	) {}
 
-  async getJobs(): Promise<GetJob[]> {
-    return this.prisma.job.findMany();
-  }
+	async getJobs(): Promise<GetJob[]> {
+		return this.prisma.job.findMany();
+	}
 
-  async getJob(uuid: string): Promise<GetJob> {
-    const job = await this.prisma.job.findUnique({ where: { uuid } });
-    if (!job) {
-      throw new NotFoundException('Job not found');
-    }
-    return job;
-  }
+	async getJob(uuid: string): Promise<GetJob> {
+		const job = await this.prisma.job.findUnique({ where: { uuid } });
+		if (!job) {
+			throw new NotFoundException("Job not found");
+		}
+		return job;
+	}
 
-  async deleteJob(id: number): Promise<void> {
-    await this.prisma.job.delete({ where: { id } });
-  }
+	async deleteJob(id: number): Promise<void> {
+		await this.prisma.job.delete({ where: { id } });
+	}
 
-  async updateJob(id: number, dto: UpdateJobDto): Promise<GetJob> {
-    const job = await this.prisma.job.findUnique({ where: { id } });
-    if (!job) throw new NotFoundException('Job not found');
-    return this.prisma.job.update({
-      where: { uuid: job.uuid },
-      data: { content: dto.content },
-    });
-  }
+	async updateJob(id: number, dto: UpdateJobDto): Promise<GetJob> {
+		const job = await this.prisma.job.findUnique({ where: { id } });
+		if (!job) throw new NotFoundException("Job not found");
+		return this.prisma.job.update({
+			where: { uuid: job.uuid },
+			data: { content: dto.content },
+		});
+	}
 
-  async createJob(createJobDto: CreateJobDto): Promise<GetJob> {
-    const template = await this.prisma.template.findUnique({
-      where: {
-        uuid: createJobDto.templateUuid,
-      },
-    });
-    if (!template) {
-      throw new NotFoundException('Template not found');
-    }
-    const prompt = `${firstHalf}\n\n${template.template}\n\n${secondHalf}\n\n${createJobDto.content}`;
-    const content = await this.ai.createMessage(
-      [{ role: "user", content: prompt }],
-    );
+	async createJob(createJobDto: CreateJobDto): Promise<GetJob> {
+		const template = await this.prisma.template.findUnique({
+			where: {
+				uuid: createJobDto.templateUuid,
+			},
+		});
+		if (!template) {
+			throw new NotFoundException("Template not found");
+		}
+		const prompt = `${firstHalf}\n\n${template.template}\n\n${secondHalf}\n\n${createJobDto.content}`;
+		const content = await this.ai.createMessage([
+			{ role: "user", content: prompt },
+		]);
 
-    return this.prisma.job.create({
-      data: {
-        title: createJobDto.title,
-        category: createJobDto.category,
-        content,
-        templateId: template.id,
-      },
-    });
-  }
+		return this.prisma.job.create({
+			data: {
+				title: createJobDto.title,
+				category: createJobDto.category,
+				content,
+				templateId: template.id,
+			},
+		});
+	}
 }

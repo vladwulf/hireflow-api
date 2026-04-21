@@ -4,8 +4,8 @@ import { JdController } from "./jd.controller";
 import { JdService } from "./jd.service";
 
 @Module({
-  imports: [AiModule],
-  controllers: [JdController],
-  providers: [JdService],
+	imports: [AiModule],
+	controllers: [JdController],
+	providers: [JdService],
 })
 export class JdModule {}
