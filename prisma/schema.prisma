@@ -13,9 +13,11 @@ datasource db {
 }
 
 model Template {
-  id          String @id @default(cuid())
-  name        String
-  description String
+  id   String @id @default(cuid())
+  uuid String @unique @default(cuid())
+
+  name           String
+  jobDescription String // template for job description
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

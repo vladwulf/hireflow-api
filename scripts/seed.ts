@@ -15,41 +15,34 @@ async function main() {
 	const engineeringTemplate = await prisma.template.create({
 		data: {
 			name: "Software Engineer",
-			description: "Template for engineering roles",
-			sections: [
-				{ title: "Role Overview", placeholder: "Describe the role and team" },
-				{ title: "Responsibilities", placeholder: "List key responsibilities" },
-				{
-					title: "Requirements",
-					placeholder: "List required skills and experience",
-				},
-				{
-					title: "Nice to Have",
-					placeholder: "Optional skills and experience",
-				},
-			],
+			jobDescription: `## Role Overview
+{{role_overview}}
+
+## Responsibilities
+{{responsibilities}}
+
+## Requirements
+{{requirements}}
+
+## Nice to Have
+{{nice_to_have}}`,
 		},
 	});
 
 	const productTemplate = await prisma.template.create({
 		data: {
 			name: "Product Manager",
-			description: "Template for product management roles",
-			sections: [
-				{
-					title: "Role Overview",
-					placeholder: "Describe the role and product area",
-				},
-				{ title: "Responsibilities", placeholder: "List key responsibilities" },
-				{
-					title: "Requirements",
-					placeholder: "List required skills and experience",
-				},
-				{
-					title: "What We Offer",
-					placeholder: "Describe benefits and growth opportunities",
-				},
-			],
+			jobDescription: `## Role Overview
+{{role_overview}}
+
+## Responsibilities
+{{responsibilities}}
+
+## Requirements
+{{requirements}}
+
+## What We Offer
+{{what_we_offer}}`,
 		},
 	});
 
