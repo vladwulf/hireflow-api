@@ -1,10 +1,10 @@
 import { PrismaModule } from "@lib/prisma";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { CandidateModule } from "./candidate/candidate.module";
 import { JdModule } from "./jd/jd.module";
-import { TemplatesModule } from "./templates/templates.module";
-import { CandidateModule } from './candidate/candidate.module';
 import { StatsModule } from "./stats/stats.module";
+import { TemplatesModule } from "./templates/templates.module";
 
 @Module({
 	imports: [
