@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  sections    Json     // array of { title, placeholder } section definitions
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  jobs Job[]
+}
+
+model Job {
+  id         String    @id @default(cuid())
+  title      String
+  department String?
+  status     JobStatus @default(ACTIVE)
+  content    String    // generated job description text
+  notes      String?   // raw meeting notes used for generation
+  templateId String
+  template   Template  @relation(fields: [templateId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  candidates Candidate[]
+}
+
+enum JobStatus {
+  ACTIVE
+  CLOSED
+}
+
+model Candidate {
+  id        String   @id @default(cuid())
+  name      String
+  cvText    String   // raw pasted CV text
+  jobId     String
+  job       Job      @relation(fields: [jobId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  score CandidateScore?
+}
+
+model CandidateScore {
+  id           String    @id @default(cuid())
+  overall      Int       // 0–100
+  skillsMatch  Int       // 0–100
+  experience   Int       // 0–100
+  cultureFit   Int       // 0–100
+  summary      String
+  pros         String[]
+  cons         String[]
+  candidateId  String    @unique
+  candidate    Candidate @relation(fields: [candidateId], references: [id])
+  createdAt    DateTime  @default(now())
+}
