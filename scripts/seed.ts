@@ -1,9 +1,11 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 import { PrismaClient } from "../generated/prisma/client";
 
+const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({
-	adapter: new PrismaPg(process.env.DATABASE_URL!),
+	adapter: new PrismaPg(pool),
 });
 
 async function main() {
@@ -15,7 +17,7 @@ async function main() {
 	const engineeringTemplate = await prisma.template.create({
 		data: {
 			name: "Software Engineer",
-			jobDescription: `## Role Overview
+			template: `## Role Overview
 {{role_overview}}
 
 ## Responsibilities
@@ -34,7 +36,7 @@ async function main() {
 	const productTemplate = await prisma.template.create({
 		data: {
 			name: "Product Manager",
-			jobDescription: `## Role Overview
+			template: `## Role Overview
 {{role_overview}}
 
 ## Responsibilities
@@ -272,4 +274,7 @@ main()
 		console.error(e);
 		process.exit(1);
 	})
-	.finally(() => prisma.$disconnect());
+	.finally(async () => {
+		await prisma.$disconnect();
+		await pool.end();
+	});
