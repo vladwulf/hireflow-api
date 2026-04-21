@@ -1,5 +1,5 @@
 export interface RecentJob {
-	id: number;
+	uuid: string;
 	title: string;
 	category: string;
 	status: string;

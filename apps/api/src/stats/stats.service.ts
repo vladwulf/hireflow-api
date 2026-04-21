@@ -26,7 +26,7 @@ export class StatsService {
 			candidates,
 			avgScore: scores._avg.overall ? Math.round(scores._avg.overall) : null,
 			recentJobs: recentJobs.map((job) => ({
-				id: job.id,
+        uuid: job.uuid,
 				title: job.title,
 				category: job.category,
 				status: job.status,
