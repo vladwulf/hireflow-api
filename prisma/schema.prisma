@@ -13,7 +13,7 @@ datasource db {
 }
 
 model Template {
-  id   String @id @default(cuid())
+  id   Int    @id @default(autoincrement())
   uuid String @unique @default(cuid())
 
   name        String
@@ -31,16 +31,19 @@ model Template {
 }
 
 model Job {
-  id         String    @id @default(cuid())
-  title      String
-  department String?
-  status     JobStatus @default(ACTIVE)
-  content    String // generated job description text
-  notes      String? // raw meeting notes used for generation
-  templateId String
-  template   Template  @relation(fields: [templateId], references: [id])
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id       String @id @default(cuid())
+  title    String
+  category String
+
+  status JobStatus @default(ACTIVE)
+
+  content String // generated job description text
+
+  templateId Int
+  template   Template @relation(fields: [templateId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   candidates Candidate[]
 
