@@ -38,7 +38,7 @@ export class TemplatesService {
 				name: t.name,
 				uuid: t.uuid,
 				category: t.category,
-				template: t.jobDescription,
+				template: t.template,
 				tags: t.tags,
 			};
 		});
@@ -55,7 +55,7 @@ export class TemplatesService {
 		return this.prisma.template.create({
 			data: {
 				name: createTemplateDto.name,
-				jobDescription: template,
+				template: template,
 				category: createTemplateDto.category,
 				tags: createTemplateDto.tags ?? [],
 			},

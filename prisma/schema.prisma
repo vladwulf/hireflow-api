@@ -16,10 +16,10 @@ model Template {
   id   String @id @default(cuid())
   uuid String @unique @default(cuid())
 
-  name           String
-  jobDescription String // template for job description
-  category       String
-  tags           String[]
+  name     String
+  template String // template for job description
+  category String
+  tags     String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
