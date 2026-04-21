@@ -2,7 +2,7 @@
 CREATE TYPE "JobStatus" AS ENUM ('ACTIVE', 'CLOSED');
 
 -- CreateTable
-CREATE TABLE "Template" (
+CREATE TABLE "templates" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
@@ -10,11 +10,11 @@ CREATE TABLE "Template" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Template_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "templates_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Job" (
+CREATE TABLE "jobs" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "department" TEXT,
@@ -25,11 +25,11 @@ CREATE TABLE "Job" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Job_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "jobs_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Candidate" (
+CREATE TABLE "candidates" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "cvText" TEXT NOT NULL,
@@ -37,11 +37,11 @@ CREATE TABLE "Candidate" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Candidate_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "candidates_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "CandidateScore" (
+CREATE TABLE "candidate_scores" (
     "id" TEXT NOT NULL,
     "overall" INTEGER NOT NULL,
     "skillsMatch" INTEGER NOT NULL,
@@ -53,17 +53,17 @@ CREATE TABLE "CandidateScore" (
     "candidateId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "CandidateScore_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "candidate_scores_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "CandidateScore_candidateId_key" ON "CandidateScore"("candidateId");
+CREATE UNIQUE INDEX "candidate_scores_candidateId_key" ON "candidate_scores"("candidateId");
 
 -- AddForeignKey
-ALTER TABLE "Job" ADD CONSTRAINT "Job_templateId_fkey" FOREIGN KEY ("templateId") REFERENCES "Template"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "jobs" ADD CONSTRAINT "jobs_templateId_fkey" FOREIGN KEY ("templateId") REFERENCES "templates"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Candidate" ADD CONSTRAINT "Candidate_jobId_fkey" FOREIGN KEY ("jobId") REFERENCES "Job"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "candidates" ADD CONSTRAINT "candidates_jobId_fkey" FOREIGN KEY ("jobId") REFERENCES "jobs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CandidateScore" ADD CONSTRAINT "CandidateScore_candidateId_fkey" FOREIGN KEY ("candidateId") REFERENCES "Candidate"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "candidate_scores" ADD CONSTRAINT "candidate_scores_candidateId_fkey" FOREIGN KEY ("candidateId") REFERENCES "candidates"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
