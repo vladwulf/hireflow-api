@@ -1,7 +1,11 @@
 export interface GetCandidate {
-  id: string;
+  id: number;
+  uuid: string;
   name: string;
   cvText: string;
-  jobId: string;
+  appFormText: string | null;
+  extraText: string | null;
+  jobId: number;
   createdAt: Date;
+  updatedAt: Date;
 }
