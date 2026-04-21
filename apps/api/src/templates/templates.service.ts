@@ -1,6 +1,6 @@
-import type { PrismaService } from "@lib/prisma";
+import { PrismaService } from "@lib/prisma";
 import { Injectable } from "@nestjs/common";
-import type { CreateTemplateDto } from "./dto/create-template.dto";
+import { CreateTemplateDto } from "./dto/create-template.dto";
 
 @Injectable()
 export class TemplatesService {
@@ -15,7 +15,7 @@ export class TemplatesService {
 				name: createTemplateDto.name,
 				jobDescription: createTemplateDto.description,
 				category: createTemplateDto.category,
-				tags: createTemplateDto.tags ?? []
+				tags: createTemplateDto.tags ?? [],
 			},
 		});
 	}
