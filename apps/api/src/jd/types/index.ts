@@ -2,7 +2,8 @@ import { JobStatus } from "generated/prisma/enums";
 
 
 export interface GetJob {
-	id: string;
+	id: number;
+	uuid: string;
 	title: string;
 	category: string;
 	status: JobStatus;

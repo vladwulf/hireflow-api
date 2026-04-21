@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { JdModule } from "./jd/jd.module";
 import { TemplatesModule } from "./templates/templates.module";
+import { CandidateModule } from './candidate/candidate.module';
 import { StatsModule } from "./stats/stats.module";
 
 @Module({
@@ -11,6 +12,7 @@ import { StatsModule } from "./stats/stats.module";
 		PrismaModule,
 		TemplatesModule,
 		JdModule,
+		CandidateModule,
 		StatsModule,
 	],
 })

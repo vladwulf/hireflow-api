@@ -42,23 +42,23 @@ export class JdService {
     return this.prisma.job.findMany();
   }
 
-  async getJob(id: string): Promise<GetJob> {
-    const job = await this.prisma.job.findUnique({ where: { id } });
+  async getJob(uuid: string): Promise<GetJob> {
+    const job = await this.prisma.job.findUnique({ where: { uuid } });
     if (!job) {
       throw new NotFoundException('Job not found');
     }
     return job;
   }
 
-  async deleteJob(id: string): Promise<void> {
+  async deleteJob(id: number): Promise<void> {
     await this.prisma.job.delete({ where: { id } });
   }
 
-  async updateJob(id: string, dto: UpdateJobDto): Promise<GetJob> {
+  async updateJob(id: number, dto: UpdateJobDto): Promise<GetJob> {
     const job = await this.prisma.job.findUnique({ where: { id } });
     if (!job) throw new NotFoundException('Job not found');
     return this.prisma.job.update({
-      where: { id },
+      where: { uuid: job.uuid },
       data: { content: dto.content },
     });
   }
