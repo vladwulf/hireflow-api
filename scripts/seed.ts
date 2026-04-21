@@ -26,6 +26,7 @@ async function main() {
 
 ## Nice to Have
 {{nice_to_have}}`,
+			sections: ["Role Overview", "Responsibilities", "Requirements", "Nice to Have"],
 		},
 	});
 
@@ -43,6 +44,7 @@ async function main() {
 
 ## What We Offer
 {{what_we_offer}}`,
+			sections: ["Role Overview", "Responsibilities", "Requirements", "What We Offer"],
 		},
 	});
 

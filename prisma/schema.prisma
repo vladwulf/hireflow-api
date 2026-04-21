@@ -18,6 +18,7 @@ model Template {
 
   name           String
   jobDescription String // template for job description
+  sections       String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

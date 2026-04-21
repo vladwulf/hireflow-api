@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import {  IsNotEmpty, IsString } from "class-validator";
 
 export class CreateTemplateDto {
 	@IsString()
@@ -8,4 +8,7 @@ export class CreateTemplateDto {
 	@IsString()
 	@IsNotEmpty()
 	description: string;
+
+	@IsString({ each: true })
+	sections: string[];
 }

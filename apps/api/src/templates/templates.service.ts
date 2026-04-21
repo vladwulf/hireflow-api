@@ -13,7 +13,8 @@ export class TemplatesService {
 		return this.prisma.template.create({
 			data: {
 				name: createTemplateDto.name,
-				description: createTemplateDto.description,
+				jobDescription: createTemplateDto.description,
+				sections: createTemplateDto.sections ?? undefined,
 			},
 		});
 	}
