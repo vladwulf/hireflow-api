@@ -12,9 +12,19 @@ export class CandidateController {
     return this.candidateService.getCandidatesByJob(jobUuid);
   }
 
+  @Get(':uuid')
+  getCandidate(@Param('uuid') uuid: string) {
+    return this.candidateService.getCandidate(uuid);
+  }
+
   @Post()
   addCandidate(@Body() dto: CreateCandidateDto) {
     return this.candidateService.addCandidate(dto);
+  }
+
+  @Post(':uuid/score')
+  scoreCandidate(@Param('uuid') uuid: string) {
+    return this.candidateService.scoreCandidate(uuid);
   }
 
   @Patch(':uuid')
