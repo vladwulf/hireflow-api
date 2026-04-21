@@ -2,6 +2,7 @@ import { AiService } from "@lib/ai";
 import { PrismaService } from "@lib/prisma";
 import { Injectable } from "@nestjs/common";
 import { CreateTemplateDto } from "./dto/create-template.dto";
+import { UpdateTemplateDto } from "./dto/update-template.dto";
 import { GetTemplates } from "./types";
 
 const metaPrompt = `You are a Job Description Template Architect.
@@ -13,6 +14,14 @@ Additionally, you must cleanly format the output in valid Markdown. This include
 ## STEP 1 — ANALYZE THE JD
 
 Carefully read the job description and identify:
+- The sections present and their order
+- The writing style (formal, conversational, direct, etc.)
+- The tone (corporate, startup, technical, inclusive, etc.)
+- How each section is formatted (bullets, paragraphs, headers, etc.)
+- Any recurring patterns (e.g., how requirements are phrased, how the company is introduced)
+
+## STEP 2 — BUILD THE TEMPLATE
+Replace all specific content with clear placeholders using this format: **[PLACEHOLDER_NAME]**
 
 - The sections present and their order
 - The writing style (formal, conversational, direct, etc.)
@@ -62,33 +71,51 @@ export class TemplatesService {
 	) {}
 
 	async getTemplates(): Promise<GetTemplates[]> {
-		const templateR = await this.prisma.template.findMany();
-		const templates = templateR.map((t) => {
-			return {
-				name: t.name,
-				uuid: t.uuid,
-				category: t.category,
-				template: t.template,
-				tags: t.tags,
-			};
-		});
-
-		return templates;
+		const rows = await this.prisma.template.findMany();
+		return rows.map(toDto);
 	}
 
-	async createTemplate(createTemplateDto: CreateTemplateDto) {
-		const template = await this.ai.createMessage(
-			[{ role: "user", content: createTemplateDto.description }],
+	async getTemplateByUuid(uuid: string): Promise<GetTemplates> {
+		const row = await this.prisma.template.findUniqueOrThrow({
+			where: { uuid },
+		});
+
+		if (row.template) {
+			return toDto(row);
+		}
+
+		// Lazily generate the AI template and cache it
+		const generated = await this.ai.createMessage(
+			[{ role: "user", content: row.description }],
 			{ system: metaPrompt },
 		);
 
-		return this.prisma.template.create({
+		const updated = await this.prisma.template.update({
+			where: { uuid },
+			data: { template: generated },
+		});
+
+		return toDto(updated);
+	}
+
+	async updateTemplate(uuid: string, dto: UpdateTemplateDto): Promise<GetTemplates> {
+		const updated = await this.prisma.template.update({
+			where: { uuid },
+			data: { template: dto.template },
+		});
+		return toDto(updated);
+	}
+
+	async createTemplate(createTemplateDto: CreateTemplateDto): Promise<GetTemplates> {
+		const row = await this.prisma.template.create({
 			data: {
 				name: createTemplateDto.name,
-				template: template,
+				description: createTemplateDto.description,
 				category: createTemplateDto.category,
 				tags: createTemplateDto.tags ?? [],
 			},
 		});
+
+		return toDto(row);
 	}
 }
