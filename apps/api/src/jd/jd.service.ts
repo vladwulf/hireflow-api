@@ -50,11 +50,15 @@ export class JdService {
     return job;
   }
 
-  async updateJob(uuid: string, dto: UpdateJobDto): Promise<GetJob> {
-    const job = await this.prisma.job.findUnique({ where: { uuid } });
+  async deleteJob(id: number): Promise<void> {
+    await this.prisma.job.delete({ where: { id } });
+  }
+
+  async updateJob(id: number, dto: UpdateJobDto): Promise<GetJob> {
+    const job = await this.prisma.job.findUnique({ where: { id } });
     if (!job) throw new NotFoundException('Job not found');
     return this.prisma.job.update({
-      where: { uuid },
+      where: { uuid: job.uuid },
       data: { content: dto.content },
     });
   }

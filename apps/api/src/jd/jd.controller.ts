@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
 import { CreateJobDto } from "./dto/create-job.dto";
 import { UpdateJobDto } from "./dto/update-job.dto";
 import { JdService } from "./jd.service";
@@ -17,6 +17,12 @@ export class JdController {
   @Get(':id')
   getJob(@Param('id') id: string) {
     return this.jdService.getJob(id);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  deleteJob(@Param('id') id: string) {
+    return this.jdService.deleteJob(id);
   }
 
   @Patch(':id')

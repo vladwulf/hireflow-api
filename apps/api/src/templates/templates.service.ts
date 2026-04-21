@@ -84,6 +84,10 @@ export class TemplatesService {
 		return toDto(row);
 	}
 
+	async deleteTemplate(uuid: string): Promise<void> {
+		await this.prisma.template.delete({ where: { uuid } });
+	}
+
 	async updateTemplate(uuid: string, dto: UpdateTemplateDto): Promise<GetTemplates> {
 		const updated = await this.prisma.template.update({
 			where: { uuid },
