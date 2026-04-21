@@ -13,12 +13,12 @@ datasource db {
 }
 
 model Template {
-  id          String   @id @default(cuid())
+  id          String @id @default(cuid())
   name        String
-  description String?
-  sections    Json // array of { title, placeholder } section definitions
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   jobs Job[]
 

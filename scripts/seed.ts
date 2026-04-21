@@ -19,8 +19,14 @@ async function main() {
 			sections: [
 				{ title: "Role Overview", placeholder: "Describe the role and team" },
 				{ title: "Responsibilities", placeholder: "List key responsibilities" },
-				{ title: "Requirements", placeholder: "List required skills and experience" },
-				{ title: "Nice to Have", placeholder: "Optional skills and experience" },
+				{
+					title: "Requirements",
+					placeholder: "List required skills and experience",
+				},
+				{
+					title: "Nice to Have",
+					placeholder: "Optional skills and experience",
+				},
 			],
 		},
 	});
@@ -30,10 +36,19 @@ async function main() {
 			name: "Product Manager",
 			description: "Template for product management roles",
 			sections: [
-				{ title: "Role Overview", placeholder: "Describe the role and product area" },
+				{
+					title: "Role Overview",
+					placeholder: "Describe the role and product area",
+				},
 				{ title: "Responsibilities", placeholder: "List key responsibilities" },
-				{ title: "Requirements", placeholder: "List required skills and experience" },
-				{ title: "What We Offer", placeholder: "Describe benefits and growth opportunities" },
+				{
+					title: "Requirements",
+					placeholder: "List required skills and experience",
+				},
+				{
+					title: "What We Offer",
+					placeholder: "Describe benefits and growth opportunities",
+				},
 			],
 		},
 	});
@@ -44,7 +59,8 @@ async function main() {
 			department: "Engineering",
 			status: "ACTIVE",
 			templateId: engineeringTemplate.id,
-			notes: "Looking for someone with strong React and TypeScript skills. Team is 6 engineers. Need to lead the design system work.",
+			notes:
+				"Looking for someone with strong React and TypeScript skills. Team is 6 engineers. Need to lead the design system work.",
 			content: `## Senior Frontend Engineer
 
 We are looking for a Senior Frontend Engineer to join our growing engineering team.
@@ -72,7 +88,8 @@ We are looking for a Senior Frontend Engineer to join our growing engineering te
 			department: "Engineering",
 			status: "ACTIVE",
 			templateId: engineeringTemplate.id,
-			notes: "NestJS and PostgreSQL stack. Need someone comfortable with distributed systems.",
+			notes:
+				"NestJS and PostgreSQL stack. Need someone comfortable with distributed systems.",
 			content: `## Backend Engineer
 
 Join our backend team building the core infrastructure for our platform.
@@ -166,7 +183,8 @@ B.Eng. Software Engineering, University of Lagos.`,
 			skillsMatch: 95,
 			experience: 90,
 			cultureFit: 88,
-			summary: "Exceptional candidate with directly relevant experience building design systems at scale. Strong open source track record. Likely to ramp up quickly and lead independently.",
+			summary:
+				"Exceptional candidate with directly relevant experience building design systems at scale. Strong open source track record. Likely to ramp up quickly and lead independently.",
 			pros: [
 				"Led large-scale component system migration at Shopify",
 				"Expert React and TypeScript",
@@ -187,7 +205,8 @@ B.Eng. Software Engineering, University of Lagos.`,
 			skillsMatch: 60,
 			experience: 58,
 			cultureFit: 80,
-			summary: "Solid developer with relevant frontend skills but lacks the seniority level and scale of experience required. Strong portfolio shows initiative. Better fit for a mid-level role.",
+			summary:
+				"Solid developer with relevant frontend skills but lacks the seniority level and scale of experience required. Strong portfolio shows initiative. Better fit for a mid-level role.",
 			pros: [
 				"Built a design system independently",
 				"Good cultural fit based on background",
@@ -208,13 +227,17 @@ B.Eng. Software Engineering, University of Lagos.`,
 			skillsMatch: 92,
 			experience: 85,
 			cultureFit: 85,
-			summary: "Strong backend candidate with hands-on NestJS and PostgreSQL experience in a demanding fintech environment. Event-driven architecture experience is highly relevant.",
+			summary:
+				"Strong backend candidate with hands-on NestJS and PostgreSQL experience in a demanding fintech environment. Event-driven architecture experience is highly relevant.",
 			pros: [
 				"Direct NestJS and PostgreSQL experience",
 				"Proven at scale in fintech",
 				"Distributed systems knowledge",
 			],
-			cons: ["4 years experience is slightly below ideal", "No Kubernetes mentioned"],
+			cons: [
+				"4 years experience is slightly below ideal",
+				"No Kubernetes mentioned",
+			],
 		},
 	});
 
@@ -225,7 +248,8 @@ B.Eng. Software Engineering, University of Lagos.`,
 			skillsMatch: 48,
 			experience: 65,
 			cultureFit: 72,
-			summary: "Experienced engineer but primary stack (Python/Django) doesn't align with the role. Only 1 year TypeScript experience and no NestJS is a significant gap for a team looking to move fast.",
+			summary:
+				"Experienced engineer but primary stack (Python/Django) doesn't align with the role. Only 1 year TypeScript experience and no NestJS is a significant gap for a team looking to move fast.",
 			pros: [
 				"6 years overall engineering experience",
 				"Full-stack exposure could be useful",

@@ -12,7 +12,7 @@ export class TemplatesController {
 	}
 
 	@Post()
-  createTemplate(@Body() dto: CreateTemplateDto) {
-    return this.templatesService.createTemplate(dto);
-  }
+	createTemplate(@Body() dto: CreateTemplateDto) {
+		return this.templatesService.createTemplate(dto);
+	}
 }

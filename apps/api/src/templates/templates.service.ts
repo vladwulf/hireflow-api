@@ -10,6 +10,11 @@ export class TemplatesService {
 	}
 
 	async createTemplate(createTemplateDto: CreateTemplateDto) {
-		return this.prisma.template.create({ data: createTemplateDto });
+		return this.prisma.template.create({
+			data: {
+				name: createTemplateDto.name,
+				description: createTemplateDto.description,
+			},
+		});
 	}
 }

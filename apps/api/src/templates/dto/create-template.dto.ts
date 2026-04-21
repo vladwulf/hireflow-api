@@ -1,10 +1,11 @@
-export class TemplateSection {
-	title: string;
-	placeholder: string;
-}
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateTemplateDto {
+	@IsString()
+	@IsNotEmpty()
 	name: string;
-	description?: string;
-	sections: TemplateSection[];
+
+	@IsString()
+	@IsNotEmpty()
+	description: string;
 }
