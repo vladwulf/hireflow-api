@@ -2,9 +2,6 @@
 builder = "NIXPACKS"
 buildCommand = "pnpm install && pnpm run build && pnpm run db:deploy"
 
-[build.nixpacksPlan.variables]
-NIXPACKS_NODE_VERSION = "24"
-
 [deploy]
 startCommand = "node dist/apps/api/main"
 healthcheckPath = "/health"
