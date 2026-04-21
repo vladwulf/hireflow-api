@@ -80,7 +80,8 @@
 			"<rootDir>/libs/"
 		],
 		"moduleNameMapper": {
-			"^@lib/ai(|/.*)$": "<rootDir>/libs/ai/src/$1"
+			"^@lib/ai(|/.*)$": "<rootDir>/libs/ai/src/$1",
+			"^@lib/prisma(|/.*)$": "<rootDir>/libs/prisma/src/$1"
 		}
 	}
 }

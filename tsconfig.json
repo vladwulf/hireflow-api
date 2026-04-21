@@ -23,7 +23,9 @@
 		"noFallthroughCasesInSwitch": false,
 		"paths": {
 			"@lib/ai": ["libs/ai/src"],
-			"@lib/ai/*": ["libs/ai/src/*"]
+			"@lib/ai/*": ["libs/ai/src/*"],
+			"@lib/prisma": ["libs/prisma/src"],
+			"@lib/prisma/*": ["libs/prisma/src/*"]
 		}
 	}
 }
