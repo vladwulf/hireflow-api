@@ -1,4 +1,6 @@
+import type { PrismaService } from "@lib/prisma";
 import { Injectable } from "@nestjs/common";
+import type { CreateTemplateDto } from "./dto/create-template.dto";
 
 @Injectable()
 export class TemplatesService {
