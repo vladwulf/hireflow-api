@@ -14,7 +14,8 @@ export class TemplatesService {
 			data: {
 				name: createTemplateDto.name,
 				jobDescription: createTemplateDto.description,
-				sections: createTemplateDto.sections ?? undefined,
+				category: createTemplateDto.category,
+				tags: createTemplateDto.tags ?? []
 			},
 		});
 	}

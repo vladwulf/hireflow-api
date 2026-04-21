@@ -14,5 +14,5 @@ export class CreateTemplateDto {
 	description: string;
 
 	@IsString({ each: true })
-	sections: string[];
+	tags: string[];
 }
