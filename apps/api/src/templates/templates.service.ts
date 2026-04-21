@@ -2,6 +2,7 @@ import { AiService } from "@lib/ai";
 import { PrismaService } from "@lib/prisma";
 import { Injectable } from "@nestjs/common";
 import { CreateTemplateDto } from "./dto/create-template.dto";
+import { UpdateTemplateDto } from "./dto/update-template.dto";
 import { GetTemplates } from "./types";
 
 const metaPrompt = `You are a Job Description Template Architect. Your task is to analyze the job description provided by the user and extract a reusable template that captures its structure, format, tone, and writing style — without keeping any role-specific content.
@@ -89,6 +90,14 @@ export class TemplatesService {
 			data: { template: generated },
 		});
 
+		return toDto(updated);
+	}
+
+	async updateTemplate(uuid: string, dto: UpdateTemplateDto): Promise<GetTemplates> {
+		const updated = await this.prisma.template.update({
+			where: { uuid },
+			data: { template: dto.template },
+		});
 		return toDto(updated);
 	}
 
