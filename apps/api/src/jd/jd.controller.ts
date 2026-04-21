@@ -27,6 +27,11 @@ export class JdController {
 		return this.jdService.getJob(id);
 	}
 
+	@Patch(":uuid/status")
+	updateJobStatus(@Param("uuid") uuid: string) {
+		return this.jdService.updateJobStatus(uuid);
+	}
+
 	@Delete(":id")
 	@HttpCode(204)
 	deleteJob(@Param("id") id: number) {
