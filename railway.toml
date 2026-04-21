@@ -1,0 +1,7 @@
+[build]
+buildCommand = "npm run build && npm run db:deploy"
+
+[deploy]
+startCommand = "node dist/apps/api/main"
+healthcheckPath = "/health"
+restartPolicyType = "ON_FAILURE"
