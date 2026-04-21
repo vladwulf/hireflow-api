@@ -14,7 +14,7 @@ datasource db {
 
 model Template {
   id   Int    @id @default(autoincrement())
-  uuid String @unique @default(cuid())
+  uuid String @unique @default(uuid())
 
   name     String
   template String // AI-generated template (null until first GET by uuid)
@@ -30,7 +30,8 @@ model Template {
 }
 
 model Job {
-  id       String @id @default(cuid())
+  id       Int    @id @default(autoincrement())
+  uuid     String @unique @default(uuid())
   title    String
   category String
 
@@ -55,13 +56,16 @@ enum JobStatus {
 }
 
 model Candidate {
-  id        String   @id @default(cuid())
-  name      String
-  cvText    String // raw pasted CV text
-  jobId     String
-  job       Job      @relation(fields: [jobId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  uuid        String   @unique @default(uuid())
+  name        String
+  cvText      String // raw pasted CV text
+  appFormText String?
+  extraText   String?
+  jobId       Int
+  job         Job      @relation(fields: [jobId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   score CandidateScore?
 
@@ -69,7 +73,7 @@ model Candidate {
 }
 
 model CandidateScore {
-  id          String    @id @default(cuid())
+  id          Int       @id @default(autoincrement())
   overall     Int // 0–100
   skillsMatch Int // 0–100
   experience  Int // 0–100
@@ -77,7 +81,7 @@ model CandidateScore {
   summary     String
   pros        String[]
   cons        String[]
-  candidateId String    @unique
+  candidateId Int       @unique
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   createdAt   DateTime  @default(now())
 
