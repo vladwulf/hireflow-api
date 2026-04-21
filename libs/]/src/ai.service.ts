@@ -42,8 +42,8 @@ export class AiService implements OnModuleInit {
 	): Promise<string> {
 		const model = options.model ?? DEFAULTS[this.provider];
 
-		if (this.anthropic) {
-			const response = await this.anthropic.messages.create({
+		if (this.provider === "anthropic") {
+			const response = await this.anthropic!.messages.create({
 				model,
 				max_tokens: 8096,
 				system: options.system,
@@ -53,19 +53,15 @@ export class AiService implements OnModuleInit {
 			return block.type === "text" ? block.text : "";
 		}
 
-		if (this.openai) {
-			const response = await this.openai.chat.completions.create({
-				model,
-				messages: [
-					...(options.system
-						? [{ role: "system" as const, content: options.system }]
-						: []),
-					...messages,
-				],
-			});
-			return response.choices[0]?.message?.content ?? "";
-		}
-
-		throw new Error("No AI provider initialized");
+		const response = await this.openai!.chat.completions.create({
+			model,
+			messages: [
+				...(options.system
+					? [{ role: "system" as const, content: options.system }]
+					: []),
+				...messages,
+			],
+		});
+		return response.choices[0]?.message?.content ?? "";
 	}
 }
