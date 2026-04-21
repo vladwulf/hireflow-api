@@ -2,6 +2,7 @@ export interface GetTemplates {
 	name: string;
 	uuid: string;
 	category: string;
-	template: string;
+	description: string;
+	template: string | null;
 	tags: string[];
 }
