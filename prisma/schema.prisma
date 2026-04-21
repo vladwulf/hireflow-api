@@ -16,11 +16,10 @@ model Template {
   id   Int    @id @default(autoincrement())
   uuid String @unique @default(cuid())
 
-  name        String
-  description String   // raw job description submitted by the user
-  template    String?  // AI-generated template (null until first GET by uuid)
-  category    String
-  tags        String[]
+  name     String
+  template String // AI-generated template (null until first GET by uuid)
+  category String
+  tags     String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

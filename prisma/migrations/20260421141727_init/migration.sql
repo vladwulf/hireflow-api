@@ -3,10 +3,12 @@ CREATE TYPE "JobStatus" AS ENUM ('ACTIVE', 'CLOSED');
 
 -- CreateTable
 CREATE TABLE "templates" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "uuid" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
-    "sections" JSONB NOT NULL,
+    "template" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "tags" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -17,11 +19,10 @@ CREATE TABLE "templates" (
 CREATE TABLE "jobs" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "department" TEXT,
+    "category" TEXT NOT NULL,
     "status" "JobStatus" NOT NULL DEFAULT 'ACTIVE',
     "content" TEXT NOT NULL,
-    "notes" TEXT,
-    "templateId" TEXT NOT NULL,
+    "templateId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -55,6 +56,9 @@ CREATE TABLE "candidate_scores" (
 
     CONSTRAINT "candidate_scores_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "templates_uuid_key" ON "templates"("uuid");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "candidate_scores_candidateId_key" ON "candidate_scores"("candidateId");
