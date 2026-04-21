@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { CreateTemplateDto } from "./dto/create-template.dto";
 import { TemplatesService } from "./templates.service";
 
@@ -9,6 +9,11 @@ export class TemplatesController {
 	@Get()
 	async getTemplates() {
 		return this.templatesService.getTemplates();
+	}
+
+	@Get(":uuid")
+	async getTemplateByUuid(@Param("uuid") uuid: string) {
+		return this.templatesService.getTemplateByUuid(uuid);
 	}
 
 	@Post()

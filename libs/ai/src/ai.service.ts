@@ -25,17 +25,21 @@ export class AiService implements OnModuleInit {
 	private openai: OpenAI | null = null;
 
 	onModuleInit() {
-		const claudeApiKey = this.configService.getOrThrow("ANTHROPIC_API_KEY");
+		const claudeApiKey =
+			this.configService.get("CLAUDE_API_KEY") ??
+			this.configService.get("ANTHROPIC_API_KEY");
 
 		if (claudeApiKey) {
 			this.provider = "anthropic";
-			this.anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-		} else if (process.env.OPENAI_API_KEY) {
+			this.anthropic = new Anthropic({ apiKey: claudeApiKey });
+		} else if (this.configService.get("OPENAI_API_KEY")) {
 			this.provider = "openai";
-			this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+			this.openai = new OpenAI({
+				apiKey: this.configService.get("OPENAI_API_KEY"),
+			});
 		} else {
 			throw new Error(
-				"No AI provider configured: set ANTHROPIC_API_KEY or OPENAI_API_KEY",
+				"No AI provider configured: set CLAUDE_API_KEY, ANTHROPIC_API_KEY, or OPENAI_API_KEY",
 			);
 		}
 		this.logger.log(`Using AI provider: ${this.provider}`);
