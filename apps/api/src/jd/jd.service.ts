@@ -2,6 +2,7 @@ import { AiService } from "@lib/ai";
 import { PrismaService } from "@lib/prisma";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateJobDto } from "./dto/create-job.dto";
+import { UpdateJobDto } from "./dto/update-job.dto";
 import { GetJob } from "./types";
 
 const firstHalf = `
@@ -47,6 +48,15 @@ export class JdService {
       throw new NotFoundException('Job not found');
     }
     return job;
+  }
+
+  async updateJob(id: string, dto: UpdateJobDto): Promise<GetJob> {
+    const job = await this.prisma.job.findUnique({ where: { id } });
+    if (!job) throw new NotFoundException('Job not found');
+    return this.prisma.job.update({
+      where: { id },
+      data: { content: dto.content },
+    });
   }
 
   async createJob(createJobDto: CreateJobDto): Promise<GetJob> {
