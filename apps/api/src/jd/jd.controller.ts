@@ -5,7 +5,6 @@ import {
 	Get,
 	HttpCode,
 	Param,
-	ParseIntPipe,
 	Patch,
 	Post,
 } from "@nestjs/common";
@@ -38,9 +37,9 @@ export class JdController {
 		return this.jdService.deleteJob(id);
 	}
 
-	@Patch(":id")
-	updateJob(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdateJobDto) {
-		return this.jdService.updateJob(id, dto);
+	@Patch(":uuid")
+	updateJob(@Param("uuid") uuid: string, @Body() dto: UpdateJobDto) {
+		return this.jdService.updateJob(uuid, dto);
 	}
 
 	@Post()
