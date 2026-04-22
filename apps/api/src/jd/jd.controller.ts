@@ -9,6 +9,7 @@ import {
 	Post,
 } from "@nestjs/common";
 import { CreateJobDto } from "./dto/create-job.dto";
+import { RegenerateJobDto } from "./dto/regenerate-job.dto";
 import { UpdateJobDto } from "./dto/update-job.dto";
 import { JdService } from "./jd.service";
 
@@ -40,6 +41,11 @@ export class JdController {
 	@Patch(":uuid")
 	updateJob(@Param("uuid") uuid: string, @Body() dto: UpdateJobDto) {
 		return this.jdService.updateJob(uuid, dto);
+	}
+
+	@Post(":uuid/regenerate")
+	regenerateJob(@Param("uuid") uuid: string, @Body() dto: RegenerateJobDto) {
+		return this.jdService.regenerateJob(uuid, dto);
 	}
 
 	@Post()

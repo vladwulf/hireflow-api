@@ -2,6 +2,7 @@ import { AiService } from "@lib/ai";
 import { PrismaService } from "@lib/prisma";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateJobDto } from "./dto/create-job.dto";
+import { RegenerateJobDto } from "./dto/regenerate-job.dto";
 import { UpdateJobDto } from "./dto/update-job.dto";
 import { GetJob } from "./types";
 
@@ -100,6 +101,19 @@ export class JdService {
 		return this.prisma.job.update({ where: { uuid }, data: { content: dto.content } }).catch(() => {
 			throw new NotFoundException("Job not found");
 		});
+	}
+
+	async regenerateJob(uuid: string, dto: RegenerateJobDto): Promise<GetJob> {
+		const job = await this.prisma.job.findUnique({
+			where: { uuid },
+			include: { template: true },
+		});
+		if (!job) throw new NotFoundException("Job not found");
+
+		const prompt = `${firstHalf}\n\n${job.template.template}\n\n${secondHalf}\n\n${dto.content}`;
+		const content = await this.ai.createMessage([{ role: "user", content: prompt }]);
+
+		return this.prisma.job.update({ where: { uuid }, data: { content } });
 	}
 
 	async createJob(createJobDto: CreateJobDto): Promise<GetJob> {
