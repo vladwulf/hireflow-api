@@ -101,6 +101,14 @@ export class CandidateService {
 		});
 	}
 
+	async deleteCandidate(uuid: string): Promise<void> {
+		const candidate = await this.prisma.candidate.findUnique({
+			where: { uuid },
+		});
+		if (!candidate) throw new NotFoundException("Candidate not found");
+		await this.prisma.candidate.delete({ where: { uuid } });
+	}
+
 	async scoreCandidate(uuid: string): Promise<GetCandidate> {
 		const candidate = await this.prisma.candidate.findUnique({
 			where: { uuid },
