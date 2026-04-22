@@ -129,12 +129,18 @@ export class JdService {
 		});
 		if (!job) throw new NotFoundException("Job not found");
 
-		const prompt = `${firstHalf}\n\n${job.template.template}\n\n${secondHalf}\n\n${dto.content}`;
-		const content = await this.ai.createMessage([{ role: "user", content: prompt }]);
+		let content: string | undefined;
+		if (dto.content) {
+			const prompt = `${firstHalf}\n\n${job.template.template}\n\n${secondHalf}\n\n${dto.content}`;
+			content = await this.ai.createMessage([{ role: "user", content: prompt }]);
+		}
 
 		return this.prisma.job.update({
 			where: { uuid },
-			data: { content, ...(dto.title && { title: dto.title }) },
+			data: {
+				...(content && { content }),
+				...(dto.title && { title: dto.title }),
+			},
 		});
 	}
 
