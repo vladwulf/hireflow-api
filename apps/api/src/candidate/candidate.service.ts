@@ -106,7 +106,10 @@ export class CandidateService {
 			where: { uuid },
 		});
 		if (!candidate) throw new NotFoundException("Candidate not found");
-		await this.prisma.candidate.delete({ where: { uuid } });
+		await this.prisma.$transaction([
+			this.prisma.candidateScore.deleteMany({ where: { candidateId: candidate.id } }),
+			this.prisma.candidate.delete({ where: { uuid } }),
+		]);
 	}
 
 	async scoreCandidate(uuid: string): Promise<GetCandidate> {
