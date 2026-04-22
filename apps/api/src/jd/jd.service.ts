@@ -132,7 +132,10 @@ export class JdService {
 		const prompt = `${firstHalf}\n\n${job.template.template}\n\n${secondHalf}\n\n${dto.content}`;
 		const content = await this.ai.createMessage([{ role: "user", content: prompt }]);
 
-		return this.prisma.job.update({ where: { uuid }, data: { content } });
+		return this.prisma.job.update({
+			where: { uuid },
+			data: { content, ...(dto.title && { title: dto.title }) },
+		});
 	}
 
 	async createJob(createJobDto: CreateJobDto): Promise<GetJob> {
