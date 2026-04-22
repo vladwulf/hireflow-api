@@ -51,6 +51,8 @@ Do not change which sections exist or reorder sections. Within each section's bu
 - Do not add commentary, notes, explanations, introductions, or code fences.
 - Output only the completed Markdown content.
 
+Important: If you can't match the value to a placeholder, remove the placeholder.
+
 ---
 
 ## Tone
