@@ -95,8 +95,8 @@ export class JdService {
 		});
 	}
 
-	async deleteJob(id: number): Promise<void> {
-		await this.prisma.job.delete({ where: { id } });
+	async deleteJob(uuid: string): Promise<void> {
+		await this.prisma.job.delete({ where: { uuid } });
 	}
 
 	async updateJob(uuid: string, dto: UpdateJobDto): Promise<GetJob> {

@@ -22,9 +22,9 @@ export class JdController {
 		return this.jdService.getJobs();
 	}
 
-	@Get(":id")
-	getJob(@Param("id") id: string) {
-		return this.jdService.getJob(id);
+	@Get(":uuid")
+	getJob(@Param("uuid") uuid: string) {
+		return this.jdService.getJob(uuid);
 	}
 
 	@Patch(":uuid/status")
@@ -32,10 +32,10 @@ export class JdController {
 		return this.jdService.updateJobStatus(uuid);
 	}
 
-	@Delete(":id")
+	@Delete(":uuid")
 	@HttpCode(204)
-	deleteJob(@Param("id") id: number) {
-		return this.jdService.deleteJob(id);
+	deleteJob(@Param("uuid") uuid: string) {
+		return this.jdService.deleteJob(uuid);
 	}
 
 	@Patch(":uuid")
