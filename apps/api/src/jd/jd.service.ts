@@ -44,14 +44,27 @@ Do not change which sections exist or reorder sections. Within each section's bu
 ## Step 2 — Insert filtered values into the template
 
 - Replace every placeholder with its filtered value.
-- If a placeholder's value was entirely removed by the filtering rules, remove the placeholder and any bullet point, line, or heading that only existed to contain it. Do not leave blank lines, empty bullets, or unresolved placeholders.
+- If no value exists for a placeholder, or its value was entirely removed by the filtering rules, delete the entire line or bullet point that contains it. Do not leave the placeholder text in the output.
 - If a placeholder appears multiple times in the template, apply the same filtered value to all occurrences.
 - Preserve all original Markdown formatting, headings, spacing, and structure that is not affected by filtering.
 - Do not add information that was not present in the source data.
 - Do not add commentary, notes, explanations, introductions, or code fences.
 - Output only the completed Markdown content.
 
-Important: If you can't match the value to a placeholder, remove the placeholder.
+---
+
+## Step 3 — Self-check before outputting
+
+Scan your entire output for the following errors and fix each one before writing your final response:
+
+1. **Unresolved placeholders** — any text matching the pattern \`[WORD]\` or \`[WORD_WORD]\`. If any exist, you have made an error. Delete the entire line or bullet containing it.
+2. **Blank bullets** — any list item with no content after the \`-\` or \`*\`. Remove it.
+3. **Empty sections** — any heading with no content beneath it. Remove the heading and any surrounding blank lines.
+4. **Duplicate bullets** — re-apply Rule 3 across the full document. Remove any that remain.
+
+Never output a string matching the pattern \`[ALL_CAPS]\` or \`[ALL_CAPS_WITH_UNDERSCORES]\`. If such a string would appear in your output, it is an error — either find its value or remove its containing line entirely.
+
+Only after completing this check should you write your final output.
 
 ---
 
@@ -63,9 +76,13 @@ Direct, specific, and honest. Avoid buzzwords and vague language. Write for an e
 
 ## Input
 
-### Job Description Template`;
+### Job Description Template
 
-const secondHalf = `### Job Description Data`;
+`;
+
+const secondHalf = `### Job Description Data
+
+`;
 
 @Injectable()
 export class JdService {
